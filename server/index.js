@@ -75,5 +75,6 @@ app.post('/api/flashcards', async (req, res) => {
     }
 });
 
-const PORT = 5000;
-app.listen(PORT, () => console.log(`🚀 Thinkly Groq Engine Running on Port ${PORT}`));
+const PORT = process.env.PORT || 10000; 
+app.listen(PORT, () => console.log(`🚀 Thinkly Engine running on port ${PORT}`));
+
