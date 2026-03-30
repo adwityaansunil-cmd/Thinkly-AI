@@ -23,7 +23,7 @@ function App() {
     setShowCards(false);
     setCurrentCardIndex(0);
     try {
-      const response = await fetch('http://localhost:5000/generate-notes', {
+      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topic })
@@ -40,7 +40,7 @@ function App() {
   const handleSummarize = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/summarize', {
+      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: notes }),
@@ -59,7 +59,7 @@ function App() {
   const generateFlashcards = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/flashcards', {
+      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: notes }),
