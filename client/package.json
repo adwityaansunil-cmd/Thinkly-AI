@@ -14,13 +14,13 @@
     "react-markdown": "^9.0.1",
     "remark-math": "^6.0.0",
     "rehype-katex": "^7.0.0",
-    "katex": "^0.16.9"
+    "katex": "^0.16.9",
+    "lucide-react": "^0.284.0"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
     "vite": "^5.1.0"
   }
 }
-
 
 
