@@ -4,6 +4,10 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import 'katex/dist/katex.min.css'; 
 
+// ✅ STEP 1: Accurate API URL Logic
+// This looks for a Vercel variable first. If not found, it uses your live Render link.
+const API_BASE_URL = import.meta.env.VITE_API_URL || "https://thinkly-ai-sukt.onrender.com";
+
 function App() {
   const [topic, setTopic] = useState('');
   const [loading, setLoading] = useState(false);
@@ -14,6 +18,7 @@ function App() {
   const [showCards, setShowCards] = useState(false);
   const [currentCardIndex, setCurrentCardIndex] = useState(0);
 
+  // ✅ STEP 2: Updated fetch calls using API_BASE_URL
   const generateNotes = async () => {
     if (!topic) return alert("Enter a topic first! ✨");
     setLoading(true);
@@ -23,7 +28,7 @@ function App() {
     setShowCards(false);
     setCurrentCardIndex(0);
     try {
-      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
+      const response = await fetch(`${API_BASE_URL}/generate-notes`, { // Added specific endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ topic: topic })
@@ -40,7 +45,7 @@ function App() {
   const handleSummarize = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
+      const response = await fetch(`${API_BASE_URL}/summarize`, { // Added specific endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: notes }),
@@ -59,7 +64,7 @@ function App() {
   const generateFlashcards = async () => {
     setLoading(true);
     try {
-      const response = await fetch('https://thinkly-ai-sukt.onrender.com', {
+      const response = await fetch(`${API_BASE_URL}/generate-flashcards`, { // Added specific endpoint
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: notes }),
@@ -86,7 +91,6 @@ function App() {
     }
   };
 
-  // Fixed the function names and state variables here
   const handleNext = (e) => {
     e.stopPropagation();
     if (currentCardIndex < flashcards.length - 1) {
@@ -166,7 +170,6 @@ function App() {
                       position: 'relative', width: '100%', height: '100%', transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
                       transformStyle: 'preserve-3d', transform: flashcards[currentCardIndex].flipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
                     }}>
-                      {/* Front Side */}
                       <div style={{
                         position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden',
                         backgroundColor: 'white', borderRadius: '30px', display: 'flex', alignItems: 'center', 
@@ -178,7 +181,6 @@ function App() {
                         </ReactMarkdown>
                       </div>
 
-                      {/* Back Side */}
                       <div style={{
                         position: 'absolute', width: '100%', height: '100%', backfaceVisibility: 'hidden',
                         backgroundColor: '#F5F3FF', borderRadius: '30px', display: 'flex', alignItems: 'center', 
